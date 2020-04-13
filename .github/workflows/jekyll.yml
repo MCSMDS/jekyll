@@ -8,15 +8,21 @@ jobs:
         uses: actions/checkout@v2
         with:
           persist-credentials: false
+      - name: Set up Ruby 2.6
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6.x
 
       - name: Install and Build
         run: |
-          npm install
-          npm run build
+          gem install jekyll bundler
+          jekyll build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: build
+          FOLDER: _site
+
+
